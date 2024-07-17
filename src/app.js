@@ -7,15 +7,18 @@ const db = require('./models');
 dotenv.config()
 const app = express()
 
+const authRouter = require('./routes/authRoutes');
+
 app.use(logger);
 app.use(express.json())
-app.use(express.urlencoded({ extended: false }))
+app.use(express.urlencoded({extended: false}))
 
+app.use('/api/auth', authRouter)
 
 const syncDB = async () => {
     try {
         await db.sequelize.sync()
-        console.log('Database synced successfully')
+        console.log('Database synced successfully!')
     } catch (error) {
         console.log(error)
     }
@@ -30,12 +33,12 @@ app.get('/', (req, res) => {
 // Custom error handling
 app.use((err, req, res, next) => {
     if (err instanceof ClientError) {
-        return res.status(err.statusCode).json({ error: err.message });
+        return res.status(err.statusCode).json({error: err.message});
     }
 
     // For unexpected errors
     console.error(err);
-    res.status(500).json({ error: 'Internal Server Error' });
+    res.status(500).json({error: 'Internal Server Error'});
 });
 
 
