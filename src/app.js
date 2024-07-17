@@ -23,7 +23,6 @@ const syncDB = async () => {
 
 // syncDB()
 
-
 app.get('/', (req, res) => {
     res.json("/hello")
 })
