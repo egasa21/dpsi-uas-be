@@ -1,5 +1,3 @@
-const jwt = require('jsonwebtoken')
-
 class AuthRepository {
     constructor(UserModel) {
         this.UserModel = UserModel;
