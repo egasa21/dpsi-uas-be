@@ -30,12 +30,29 @@ class CustomerController {
             const customer = await this.customerService.updateCustomer(req.params.id, req.body);
             res.status(201).json({message: 'Customer updated successfully', customer});
         } catch (err) {
-            // if (err.message === "Customer not found") {
-            //     res.status(401).json({message: err.message});
-            // } else {
-            //     res.status(500).json({message: err.message});
-            // }
             next(err);
+        }
+    }
+
+    async getCustomer(req, res, next) {
+        try {
+            const customer = await this.customerService.findById(req.params.id);
+            res.status(200).json({message: 'Customer retrieved successfully', customer});
+        } catch (e) {
+            next(e);
+        }
+    }
+
+    async getCustomers(req, res, next) {
+        try {
+            const customers = await this.customerService.findAll()
+            if (customers.length === 0) {
+                return res.status(404).json({message: 'No customers found'});
+            }
+
+            res.status(200).json({customers});
+        }catch (e) {
+            next(e);
         }
     }
 }

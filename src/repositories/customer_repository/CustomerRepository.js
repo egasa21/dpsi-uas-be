@@ -1,4 +1,5 @@
 const NotFoundError = require('../../exception/NotFoundError');
+const net = require("node:net");
 
 class CustomerRepository {
     constructor(CustomerModel, sequelize) {
@@ -27,6 +28,22 @@ class CustomerRepository {
             return updatedCustomer;
         } catch (e) {
             await transaction.rollback();
+            throw e;
+        }
+    }
+
+    async findById(id) {
+        try {
+            return await this.CustomerModel.findByPk(id)
+        } catch (e) {
+            throw e;
+        }
+    }
+
+    async getAll() {
+        try {
+            return await this.CustomerModel.findAll()
+        } catch (e) {
             throw e;
         }
     }

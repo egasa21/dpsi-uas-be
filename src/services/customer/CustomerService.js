@@ -19,13 +19,34 @@ class CustomerService {
         try {
             return await this.customerRepository.update(id, data);
         } catch (e) {
-
-            // console.error(e);
             if (e instanceof NotFoundError) {
                 throw new Error("Customer not found!");
             } else {
                 throw new Error("Error updating customer")
-                // console.log(e)
+            }
+        }
+    }
+
+    async findById(id) {
+        try {
+            return await this.customerRepository.findById(id)
+        } catch (e) {
+            if (e instanceof NotFoundError) {
+                throw new Error("Customer not found!");
+            } else {
+                throw new Error("Error while get customer")
+            }
+        }
+    }
+
+    async findAll() {
+        try {
+            return await this.customerRepository.getAll()
+        } catch (e) {
+            if (e instanceof NotFoundError) {
+                throw new Error("Customer not found!");
+            } else {
+                throw new Error("Error while get customer")
             }
         }
     }
