@@ -19,6 +19,8 @@ class CustomerService {
         try {
             return await this.customerRepository.update(id, data);
         } catch (e) {
+
+            // console.error(e);
             if (e instanceof NotFoundError) {
                 throw new Error("Customer not found!");
             } else {

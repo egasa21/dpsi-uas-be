@@ -17,7 +17,8 @@ class CustomerRepository {
         try {
             const customer = await this.CustomerModel.findByPk(id, {transaction});
             if (!customer) {
-                throw new NotFoundError('Customer not found');
+                new NotFoundError('Customer not found');
+                return
             }
 
             const updatedCustomer = await customer.update(data, {transaction});
@@ -25,7 +26,6 @@ class CustomerRepository {
 
             return updatedCustomer;
         } catch (e) {
-            console.log(e)
             await transaction.rollback();
             throw e;
         }

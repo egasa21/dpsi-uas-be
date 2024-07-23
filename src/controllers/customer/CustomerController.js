@@ -36,7 +36,6 @@ class CustomerController {
             //     res.status(500).json({message: err.message});
             // }
             next(err);
-            // console.log(err)
         }
     }
 }

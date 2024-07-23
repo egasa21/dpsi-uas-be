@@ -33,14 +33,15 @@ app.get('/', (req, res) => {
 })
 
 // Custom error handling
+
 app.use((err, req, res, next) => {
     if (err instanceof ClientError) {
-        return res.status(err.statusCode).json({error: err.message});
+        return res.status(err.statusCode).json({ error: err.message });
     }
 
     // For unexpected errors
     console.error(err);
-    res.status(500).json({error: 'Internal Server Error'});
+    res.status(500).json({ error: 'Internal Server Error' });
 });
 
 

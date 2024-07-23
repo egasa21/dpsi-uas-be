@@ -9,8 +9,9 @@ const AuthMiddleware = require('../middlewares/AuthMiddleware');
 
 const userRepository = new UserRepository(User);
 const customerRepository = new CustomerRepository(Customer, sequelize);
-const customerService = new CustomerService(customerRepository, userRepository);  // Instantiate CustomerService
-const customerController = new CustomerController(customerService);  // Inject CustomerService into CustomerController
+const customerService = new CustomerService(customerRepository, userRepository);
+const customerController = new CustomerController(customerService);
+const UUIDValidator = require('../middlewares//UUIDValidator');
 
 const router = express.Router();
 
@@ -25,6 +26,7 @@ router.put(
     "/:id",
     AuthMiddleware.verifyToken.bind(AuthMiddleware),
     AuthMiddleware.verifyUser.bind(AuthMiddleware),
+    UUIDValidator.validateUUID,
     customerController.updateCustomer.bind(customerController)
 );
 
