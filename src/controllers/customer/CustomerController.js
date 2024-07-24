@@ -2,7 +2,7 @@ const e = require("express");
 const NotFoundError = require("../../exception/NotFoundError");
 
 class CustomerController {
-    constructor(customerService, userService) {
+    constructor(customerService) {
         this.customerService = customerService;
     }
 
