@@ -1,4 +1,4 @@
-const NotFoundError = require( "../../exception/NotFoundError");
+const NotFoundError = require("../../exception/NotFoundError");
 
 class PeShopService {
     constructor(petShopRepository) {
@@ -25,10 +25,14 @@ class PeShopService {
         return this.petShopRepository.findById(id)
     }
 
+    async findAll() {
+        return this.petShopRepository.findAll()
+    }
+
     async delete(id) {
         try {
             return await this.petShopRepository.deleteById(id);
-        }catch (e){
+        } catch (e) {
             throw e;
         }
     }

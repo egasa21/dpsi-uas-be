@@ -43,11 +43,21 @@ class PetShopController {
         }
     }
 
+    async findAllPetShops(req, res, next) {
+        try {
+            const petShops = await this.petShopService.findAll();
+
+            res.status(200).json({message: "Pet Shops Found", petShops})
+        } catch (e) {
+            next(e);
+        }
+    }
+
     async deletePetShop(req, res, next) {
-        try{
+        try {
             await this.petShopService.delete(req.params.id);
             res.status(204).end()
-        }catch (e) {
+        } catch (e) {
             next(e);
         }
     }

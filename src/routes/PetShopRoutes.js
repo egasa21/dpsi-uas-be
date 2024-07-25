@@ -34,6 +34,12 @@ router.get("/:id",
     petShopController.findPetShop.bind(petShopController)
 );
 
+router.get("/",
+    AuthMiddleware.verifyToken.bind(AuthMiddleware),
+    AuthMiddleware.verifyUser.bind(AuthMiddleware),
+    petShopController.findAllPetShops.bind(petShopController)
+    )
+
 router.delete("/:id",
     AuthMiddleware.verifyToken.bind(AuthMiddleware),
     AuthMiddleware.verifyUser.bind(AuthMiddleware),
