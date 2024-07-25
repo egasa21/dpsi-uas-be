@@ -10,6 +10,7 @@ const app = express()
 const authRouter = require('./routes/authRoutes');
 const customerRouter = require('./routes/customerRoutes');
 const doctorRouter = require('./routes/doctorRoutes');
+const petShopRouter = require('./routes/PetShopRoutes');
 
 app.use(logger);
 app.use(express.json())
@@ -18,6 +19,7 @@ app.use(express.urlencoded({extended: false}))
 app.use('/api/auth', authRouter);
 app.use('/api/customers', customerRouter);
 app.use('/api/doctors', doctorRouter);
+app.use('/api/petshops', petShopRouter);
 
 const syncDB = async () => {
     try {
