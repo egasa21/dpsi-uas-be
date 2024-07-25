@@ -16,7 +16,7 @@ class DoctorRepository {
         try {
             const doctor = await this.DoctorModel.findByPk(id, {transaction})
             if (!doctor) {
-                return new NotFoundError('Doctor not found');
+                throw new NotFoundError('Doctor not found');
             }
             const updatedDoctor = await doctor.update(data, {transaction});
             await transaction.commit();

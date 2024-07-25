@@ -17,7 +17,7 @@ class CustomerRepository {
         try {
             const customer = await this.CustomerModel.findByPk(id, {transaction});
             if (!customer) {
-                return NotFoundError('Customer not found');
+                throw new NotFoundError('Customer not found');
             }
 
             const updatedCustomer = await customer.update(data, {transaction});

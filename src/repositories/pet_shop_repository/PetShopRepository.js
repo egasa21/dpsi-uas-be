@@ -15,7 +15,7 @@ class PetShopRepository {
         try {
             const petShop = await this.PetShopModel.findByPk(id, {transaction});
             if (!petShop) {
-                return new NotFoundError('PetShop not found');
+                throw new NotFoundError('PetShop not found');
             }
 
             const updatedPetShop = await petShop.update(data, {transaction});
