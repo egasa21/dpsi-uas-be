@@ -5,6 +5,8 @@ const CustomerService = require('../services/customer/CustomerService');  // Imp
 const CustomerController = require('../controllers/customer/CustomerController');
 const {User, Customer} = require('../models/index');
 const sequelize = require('../models/index').sequelize;
+
+// middleware untuk pembatasn hak akses
 const AuthMiddleware = require('../middlewares/AuthMiddleware');
 
 const userRepository = new UserRepository(User);
@@ -17,17 +19,16 @@ const router = express.Router();
 
 router.post(
     '/create',
-
-    // pembatasan hak akses. Harus memiliki token, dan harus terdaftar sebagai user jika ingin create customer
-    AuthMiddleware.verifyToken.bind(AuthMiddleware), // harus ada token
-    AuthMiddleware.verifyUser.bind(AuthMiddleware), // user harus terdaftar pada sistem. data user yang tersimpan pada token diekstrak, kemudian dicari apakah ada di database
+    AuthMiddleware.verifyToken.bind(AuthMiddleware),
+    AuthMiddleware.verifyUser.bind(AuthMiddleware),
     customerController.registerCustomer.bind(customerController)
 );
 
+// pada update request selain cek token, nanti data yang ada pada token dipake buat cek id user itu owner data bukan, kalo bukan gabisa update
 router.put(
     "/:id",
-    AuthMiddleware.verifyToken.bind(AuthMiddleware),
-    AuthMiddleware.verifyUser.bind(AuthMiddleware),
+    AuthMiddleware.verifyToken.bind(AuthMiddleware), // untuk cek apakah token yang dipakai valid
+    AuthMiddleware.verifyUser.bind(AuthMiddleware), // untuk cek pengguna memiliki token memiliki kases untuk melakukan update
     UUIDValidator.validateUUID,
     customerController.updateCustomer.bind(customerController)
 );

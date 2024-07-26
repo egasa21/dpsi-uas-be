@@ -1,5 +1,6 @@
 const e = require("express");
 const NotFoundError = require("../../exception/NotFoundError");
+const AuthorizationError = require("../../exception/AuthorizationError");
 
 class CustomerController {
     constructor(customerService) {
@@ -27,8 +28,16 @@ class CustomerController {
 
     async updateCustomer(req, res, next) {
         try {
-            const customer = await this.customerService.updateCustomer(req.params.id, req.body);
-            res.status(201).json({message: 'Customer updated successfully', customer});
+            // pembatasan hak akses, hanya empunya data yang bisa update
+
+            const customer = await this.customerService.findById(req.params.id);
+
+            if (customer.userId !== req.user.id) {
+                throw new AuthorizationError(`Access denied. The data belongs to another user`)
+            }
+
+            const updatedCustomer = await this.customerService.updateCustomer(req.params.id, req.body);
+            res.status(201).json({message: 'Customer updated successfully', updatedCustomer});
         } catch (err) {
             next(err);
         }
@@ -51,7 +60,7 @@ class CustomerController {
             }
 
             res.status(200).json({customers});
-        }catch (e) {
+        } catch (e) {
             next(e);
         }
     }
