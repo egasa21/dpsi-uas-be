@@ -13,6 +13,7 @@ const doctorRouter = require('./routes/doctorRoutes');
 const petShopRouter = require('./routes/PetShopRoutes');
 const openingHoursRouter = require('./routes/OpeningHourRoutes');
 const productRouter = require('./routes/ProductRoutes');
+const consultationRouter = require('./routes/ConsultationRoutes');
 
 app.use(logger);
 app.use(express.json())
@@ -24,6 +25,7 @@ app.use('/api/doctors', doctorRouter);
 app.use('/api/petshops', petShopRouter);
 app.use('/api/opening-hours', openingHoursRouter);
 app.use('/api/products', productRouter)
+app.use('/api/consultations', consultationRouter)
 
 const syncDB = async () => {
     try {
