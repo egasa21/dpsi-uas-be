@@ -17,8 +17,10 @@ const router = express.Router();
 
 router.post(
     '/create',
-    AuthMiddleware.verifyToken.bind(AuthMiddleware),
-    AuthMiddleware.verifyUser.bind(AuthMiddleware),
+
+    // pembatasan hak akses. Harus memiliki token, dan harus terdaftar sebagai user jika ingin create customer
+    AuthMiddleware.verifyToken.bind(AuthMiddleware), // harus ada token
+    AuthMiddleware.verifyUser.bind(AuthMiddleware), // user harus terdaftar pada sistem. data user yang tersimpan pada token diekstrak, kemudian dicari apakah ada di database
     customerController.registerCustomer.bind(customerController)
 );
 
