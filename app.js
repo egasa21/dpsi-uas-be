@@ -1,19 +1,19 @@
 const express = require('express')
 const logger = require('morgan')('dev')
 const dotenv = require('dotenv')
-const ClientError = require('./exception/ClientError');
-const db = require('./models');
+const ClientError = require('./src/exception/ClientError');
+const db = require('./src/models');
 
 dotenv.config()
 const app = express()
 
-const authRouter = require('./routes/authRoutes');
-const customerRouter = require('./routes/customerRoutes');
-const doctorRouter = require('./routes/doctorRoutes');
-const petShopRouter = require('./routes/PetShopRoutes');
-const openingHoursRouter = require('./routes/OpeningHourRoutes');
-const productRouter = require('./routes/ProductRoutes');
-const consultationRouter = require('./routes/ConsultationRoutes');
+const authRouter = require('./src/routes/AuthRoutes');
+const customerRouter = require('./src/routes/CustomerRoutes');
+const doctorRouter = require('./src/routes/DoctorRoutes');
+const petShopRouter = require('./src/routes/PetShopRoutes');
+const openingHoursRouter = require('./src/routes/OpeningHourRoutes');
+const productRouter = require('./src/routes/ProductRoutes');
+const consultationRouter = require('./src/routes/ConsultationRoutes');
 
 app.use(logger);
 app.use(express.json())
