@@ -1,6 +1,6 @@
 'use strict';
 const {
-  Model
+  Model, UUIDV4
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class OpeningHours extends Model {
@@ -15,6 +15,11 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   OpeningHours.init({
+    id: {
+      type: UUIDV4,
+      defaultValue: UUIDV4,
+      primaryKey: true
+    },
     day: DataTypes.STRING,
     openingTime: DataTypes.TIME,
     closingTime: DataTypes.TIME,

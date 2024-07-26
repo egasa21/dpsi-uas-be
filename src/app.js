@@ -11,6 +11,7 @@ const authRouter = require('./routes/authRoutes');
 const customerRouter = require('./routes/customerRoutes');
 const doctorRouter = require('./routes/doctorRoutes');
 const petShopRouter = require('./routes/PetShopRoutes');
+const openingHoursRouter = require('./routes/OpeningHourRoutes');
 
 app.use(logger);
 app.use(express.json())
@@ -20,6 +21,7 @@ app.use('/api/auth', authRouter);
 app.use('/api/customers', customerRouter);
 app.use('/api/doctors', doctorRouter);
 app.use('/api/petshops', petShopRouter);
+app.use('/api/opening-hours', openingHoursRouter);
 
 const syncDB = async () => {
     try {
@@ -40,12 +42,12 @@ app.get('/', (req, res) => {
 
 app.use((err, req, res, next) => {
     if (err instanceof ClientError) {
-        return res.status(err.statusCode).json({ error: err.message });
+        return res.status(err.statusCode).json({error: err.message});
     }
 
     // For unexpected errors
     console.error(err);
-    res.status(500).json({ error: 'Internal Server Error' });
+    res.status(500).json({error: 'Internal Server Error'});
 });
 
 
