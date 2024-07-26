@@ -19,6 +19,8 @@ const router = express.Router();
 
 router.post(
     '/create',
+
+    // pembatasan hak akses kalo ga ada token dan bukan user terdaftar, gabisa post data
     AuthMiddleware.verifyToken.bind(AuthMiddleware),
     AuthMiddleware.verifyUser.bind(AuthMiddleware),
     customerController.registerCustomer.bind(customerController)
